@@ -66,8 +66,6 @@ int getChoice()
  ************************************************/
 void nodeLoop(Node *&head, int choice) 
 {
-    bool again; // loop control
-
     do
     {
         if (choice == 1) // head
