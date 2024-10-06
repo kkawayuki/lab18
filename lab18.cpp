@@ -16,7 +16,8 @@ int getChoice();
 void nodeLoop(Node *&, int choice); // menu-driven program loop to assign nodes based on mode
 void addHead(Node *&);
 void addTail(Node *, int);
-bool promptRepeat(); //checks if user wants to go again.
+bool promptRepeat(); // checks if user wants to go again.
+void averagePrintAll(Node *);
 
 /************************************************
  * Function: Main
@@ -49,16 +50,19 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
 
     do
     {
-        if (choice = 1) // head
+        if (choice == 1) // head
         {
             addHead(head);
         }
 
         else // add tail
         {
+            cout << "add to tail\n";
         }
-    }
-    while(promptRepeat())
+    } 
+    while (promptRepeat()); //works? 
+
+    averagePrintAll(head); //output all at end
 }
 
 void addHead(Node *&head) // modify where head pointer points, incremen
@@ -73,6 +77,7 @@ void addHead(Node *&head) // modify where head pointer points, incremen
     cin >> r;
     temp->rating = r; // input validation needed
 
+    cin.ignore(100, '\n'); //clear input before getline
     cout << "Enter review comments: ";
     getline(cin, buf);
     temp->comment = buf;
@@ -90,8 +95,38 @@ bool promptRepeat()
     bool again = false;
     char buf;
 
-    cout << "Enter another review? Y/N: ";
-    cin >> buf;
-    if(tolower())
+    while (true)
+    {
+        cout << "Enter another review? Y/N: ";
+        cin >> buf;
+        if (tolower(buf) == 'y')
+        {
+            return (true);
+            break;
+        }
+        else if(tolower(buf) == 'n')
+        {
+            return(false);
+            break;
+        }
+        else
+        {
+            cout << "Please enter a valid response, (Y/N).\n";
+        }
+    }
+}
 
+void averagePrintAll(Node *head)
+{
+    double avg;
+    int i = 0;
+
+    while(head->next != nullptr)
+    {
+        cout << "\t> Review #" << i << ": " << head->rating << ": " << head->comment << '\n'; 
+        avg += head->rating;
+        head = head->next; // go to next element in linked list
+        i++; //increment
+    }
+    cout << "\t> Average: " << (avg/i) << '\n';
 }
