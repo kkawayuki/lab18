@@ -13,17 +13,19 @@ struct Node
 
 // function prototypes
 int getChoice();
-void nodeLoop(int choice); // menu-driven program loop to assign nodes based on mode
-void addHead(Node *);
-void addTail(Node *);
+void nodeLoop(Node *, int choice); // menu-driven program loop to assign nodes based on mode
+void addHead(Node *&, int);
+void addTail(Node *, int);
 
 /************************************************
  * Function: Main
  ************************************************/
 int main()
 {
-    int size = 0; // initial number of items in linked list
-    cout << getChoice(); //works as intended
+    int size = 0; 
+    Node *head = nullptr;
+
+    nodeLoop(head, getChoice()); //get user choice and loop based on it
 }
 
 // function definitions
@@ -40,6 +42,31 @@ int getChoice()
     return (choice);
 }
 
-void nodeLoop(int choice); // menu-driven program loop to assign nodes based on mode
-void addHead(Node *);
-void addTail(Node *);
+void nodeLoop(Node *head, int choice) // menu-driven program loop to assign nodes based on mode
+{
+    bool again; //loop control
+
+    if(choice = 1) // head
+    {
+        
+    }
+
+    else // add tail
+    {
+
+    }
+}
+
+void addHead(Node *&head, int size) //modify where head pointer points
+{
+    Node *temp = new Node;
+
+    cout << "Enter review rating 0-5: ";
+    cout << "Enter review comments: ";
+    cout << "Enter another review? Y/N: ";
+}
+
+void addTail(Node *head, int size)
+{
+
+}
