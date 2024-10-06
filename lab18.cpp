@@ -64,7 +64,7 @@ int getChoice()
  *
  * Return: NONE
  ************************************************/
-void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nodes based on mode
+void nodeLoop(Node *&head, int choice) 
 {
     bool again; // loop control
 
@@ -79,7 +79,7 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
         {
             addTail(head);
         }
-    } while (promptRepeat()); // works?
+    } while (promptRepeat()); 
 
     averagePrintAll(head); // output all at end
 }
@@ -95,7 +95,7 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
  * of the run.
  * Return: NONE
  ************************************************/
-void addHead(Node *&head) // modify where head pointer points, incremen
+void addHead(Node *&head) 
 {
     double r = -1;
     string buf;
@@ -110,7 +110,7 @@ void addHead(Node *&head) // modify where head pointer points, incremen
         if (r < 0 || r > 5)
             cout << "Please enter a valid rating (0-5, decimals okay)\n";
     }
-    temp->rating = r; // input validation needed
+    temp->rating = r;
 
     cin.ignore(100, '\n'); // clear input before getline
     cout << "Enter review comments: ";
@@ -149,7 +149,7 @@ void addTail(Node *&head)
             cout << "Please enter a valid rating (0-5, decimals okay)\n";
     }
 
-    temp->rating = r; // input validation needed
+    temp->rating = r;
 
     cin.ignore(100, '\n'); // clear input before getline
     cout << "Enter review comments: ";
