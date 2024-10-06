@@ -13,19 +13,19 @@ struct Node
 
 // function prototypes
 int getChoice();
-void nodeLoop(Node *, int choice); // menu-driven program loop to assign nodes based on mode
-void addHead(Node *&, int);
+void nodeLoop(Node *&, int choice); // menu-driven program loop to assign nodes based on mode
+void addHead(Node *&);
 void addTail(Node *, int);
+bool promptRepeat(); //checks if user wants to go again.
 
 /************************************************
  * Function: Main
  ************************************************/
 int main()
 {
-    int size = 0; 
     Node *head = nullptr;
 
-    nodeLoop(head, getChoice()); //get user choice and loop based on it
+    nodeLoop(head, getChoice()); // get user choice and loop based on it
 }
 
 // function definitions
@@ -42,31 +42,56 @@ int getChoice()
     return (choice);
 }
 
-void nodeLoop(Node *head, int choice) // menu-driven program loop to assign nodes based on mode
+void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nodes based on mode
 {
-    bool again; //loop control
+    bool again;   // loop control
+    int size = 0; // number in array
 
-    if(choice = 1) // head
+    do
     {
-        
-    }
+        if (choice = 1) // head
+        {
+            addHead(head);
+        }
 
-    else // add tail
-    {
-
+        else // add tail
+        {
+        }
     }
+    while(promptRepeat())
 }
 
-void addHead(Node *&head, int size) //modify where head pointer points
+void addHead(Node *&head) // modify where head pointer points, incremen
 {
+    int r;
+    string buf;
+    bool again;
+
     Node *temp = new Node;
 
     cout << "Enter review rating 0-5: ";
+    cin >> r;
+    temp->rating = r; // input validation needed
+
     cout << "Enter review comments: ";
-    cout << "Enter another review? Y/N: ";
+    getline(cin, buf);
+    temp->comment = buf;
+
+    temp->next = head; // have new node point where head was pointing
+    head = temp;       // have head point to next
 }
 
 void addTail(Node *head, int size)
 {
+}
+
+bool promptRepeat()
+{
+    bool again = false;
+    char buf;
+
+    cout << "Enter another review? Y/N: ";
+    cin >> buf;
+    if(tolower())
 
 }
