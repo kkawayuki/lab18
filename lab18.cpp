@@ -56,11 +56,12 @@ int getChoice()
  *
  * Parameters:
  * *&head, the pointer to the head of the
- * linked list, passed by reference as some called
+ * linked list, passed by reference because some
  * functions need to be able to alter the pointer.
- * 
+ *
  * choice, integer value corresponding to method
  * preference
+ *
  * Return: NONE
  ************************************************/
 void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nodes based on mode
@@ -84,16 +85,14 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
 }
 
 /************************************************
- * Function: adds a node to the front of the LL 
+ * Function: adds a node to the front of the LL
  * defined in main()
  *
  * Parameters:
  * *&head, the pointer to the head of the
- * linked list, passed by reference as some called
- * functions need to be able to alter the pointer.
- * 
- * choice, integer value corresponding to method
- * preference
+ * linked list, passed by reference so it can be
+ * reassigned to point at the new head at the end
+ * of the run.
  * Return: NONE
  ************************************************/
 void addHead(Node *&head) // modify where head pointer points, incremen
@@ -123,6 +122,17 @@ void addHead(Node *&head) // modify where head pointer points, incremen
     head = temp;       // have head point to next
 }
 
+/************************************************
+ * Function: adds a node to the tail (end) of the LL
+ * defined in main()
+ *
+ * Parameters:
+ * *&head, the pointer to the head of the
+ * linked list, passed by reference so it can be
+ * reassigned to point at the new node (in the case
+ * that there are no existing nodes.)
+ * Return: NONE
+ ************************************************/
 void addTail(Node *&head)
 {
     double r = -1;
@@ -161,9 +171,16 @@ void addTail(Node *&head)
     }
 }
 
+/************************************************
+ * Function: asks user if they want to continue
+ * looping or not, returning a boolean value based
+ * on this.
+ *
+ * Parameters: NONE
+ * Return: NONE
+ ************************************************/
 bool promptRepeat()
 {
-    bool again = false;
     char buf;
 
     while (true)
@@ -187,6 +204,15 @@ bool promptRepeat()
     }
 }
 
+/************************************************
+ * Function: loops through the linked list, averaging
+ * and printing the values correspondent to the Nodes.
+ *
+ * Parameters: *head, pointer to the head of the LL
+ * so that the function can iterate through, averaging
+ * and printing the values correspondent to the Nodes.
+ * Return: NONE
+ ************************************************/
 void averagePrintAll(Node *head)
 {
     double avg;
