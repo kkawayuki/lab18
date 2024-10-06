@@ -15,7 +15,7 @@ struct Node
 int getChoice();
 void nodeLoop(Node *&, int choice); // menu-driven program loop to assign nodes based on mode
 void addHead(Node *&);
-void addTail(Node *, int);
+void addTail(Node *);
 bool promptRepeat(); // checks if user wants to go again.
 void averagePrintAll(Node *);
 
@@ -46,7 +46,6 @@ int getChoice()
 void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nodes based on mode
 {
     bool again;   // loop control
-    int size = 0; // number in array
 
     do
     {
@@ -57,7 +56,7 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
 
         else // add tail
         {
-            cout << "add to tail\n";
+            addTail(head);
         }
     } 
     while (promptRepeat()); //works? 
@@ -82,12 +81,35 @@ void addHead(Node *&head) // modify where head pointer points, incremen
     getline(cin, buf);
     temp->comment = buf;
 
+    //assignment
     temp->next = head; // have new node point where head was pointing
     head = temp;       // have head point to next
 }
 
-void addTail(Node *head, int size)
+void addTail(Node *head)
 {
+    int r;
+    string buf;
+    bool again;
+
+    Node *temp = new Node;
+
+    cout << "Enter review rating 0-5: ";
+    cin >> r;
+    temp->rating = r; // input validation needed
+
+    cin.ignore(100, '\n'); //clear input before getline
+    cout << "Enter review comments: ";
+    getline(cin, buf);
+    temp->comment = buf;
+
+    //position in linked list
+    Node *temp = head;
+
+    while(temp->next != nullptr)
+        temp = temp->next; //iterate thorugh linked list
+
+    temp->next = nullptr; //as last member in linked list
 }
 
 bool promptRepeat()
