@@ -181,18 +181,18 @@ void addTail(Node *&head)
  ************************************************/
 bool promptRepeat()
 {
-    char buf;
+    string buf;
 
     while (true)
     {
         cout << "Enter another review? Y/N: ";
         cin >> buf;
-        if (tolower(buf) == 'y')
+        if (tolower(buf[0]) == 'y')
         {
             return (true);
             break;
         }
-        else if (tolower(buf) == 'n')
+        else if (tolower(buf[0]) == 'n')
         {
             return (false);
             break;
