@@ -6,7 +6,7 @@ using namespace std;
 // struct
 struct Node
 {
-    int rating;
+    double rating;
     string comment;
     Node *next; // pointer to next node in LL
 };
@@ -15,7 +15,7 @@ struct Node
 int getChoice();
 void nodeLoop(Node *&, int choice); // menu-driven program loop to assign nodes based on mode
 void addHead(Node *&);
-void addTail(Node *);
+void addTail(Node *&);
 bool promptRepeat(); // checks if user wants to go again.
 void averagePrintAll(Node *);
 
@@ -54,7 +54,7 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
             addHead(head);
         }
 
-        else // add tail
+        else if (choice == 2)// add tail
         {
             addTail(head);
         }
@@ -66,7 +66,7 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
 
 void addHead(Node *&head) // modify where head pointer points, incremen
 {
-    int r;
+    double r;
     string buf;
     bool again;
 
@@ -86,9 +86,9 @@ void addHead(Node *&head) // modify where head pointer points, incremen
     head = temp;       // have head point to next
 }
 
-void addTail(Node *head)
+void addTail(Node *&head)
 {
-    int r;
+    double r;
     string buf;
     bool again;
 
@@ -103,13 +103,14 @@ void addTail(Node *head)
     getline(cin, buf);
     temp->comment = buf;
 
+    Node *current = head; 
+
     //position in linked list
-    Node *temp = head;
-
-    while(temp->next != nullptr)
-        temp = temp->next; //iterate thorugh linked list
-
-    temp->next = nullptr; //as last member in linked list
+    while(current->next != nullptr)
+    {
+        current = current->next; //iterate through
+    }
+    current->next = temp; //make last one temp
 }
 
 bool promptRepeat()
@@ -143,7 +144,7 @@ void averagePrintAll(Node *head)
     double avg;
     int i = 0;
 
-    while(head->next != nullptr)
+    while(head) //while head not nullptr
     {
         cout << "\t> Review #" << i << ": " << head->rating << ": " << head->comment << '\n'; 
         avg += head->rating;
