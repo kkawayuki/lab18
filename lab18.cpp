@@ -25,11 +25,18 @@ void averagePrintAll(Node *);
 int main()
 {
     Node *head = nullptr;
-
     nodeLoop(head, getChoice()); // get user choice and loop based on it
 }
 
-// function definitions
+/************************************************
+ * Function: Prompts and verifies, before returning
+ * a user value corresponding to which linked list
+ * method to use.
+ *
+ * Parameters: NONE
+ * Return: choice, a 1 or 2 based on user preference
+ * of adding to front/back
+ ************************************************/
 int getChoice()
 {
     int choice = 0;
@@ -43,9 +50,22 @@ int getChoice()
     return (choice);
 }
 
+/************************************************
+ * Function: Main control loop of the program,
+ * facilitates calls to relevant functions.
+ *
+ * Parameters:
+ * *&head, the pointer to the head of the
+ * linked list, passed by reference as some called
+ * functions need to be able to alter the pointer.
+ * 
+ * choice, integer value corresponding to method
+ * preference
+ * Return: NONE
+ ************************************************/
 void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nodes based on mode
 {
-    bool again;   // loop control
+    bool again; // loop control
 
     do
     {
@@ -54,63 +74,91 @@ void nodeLoop(Node *&head, int choice) // menu-driven program loop to assign nod
             addHead(head);
         }
 
-        else if (choice == 2)// add tail
+        else if (choice == 2) // add tail
         {
             addTail(head);
         }
-    } 
-    while (promptRepeat()); //works? 
+    } while (promptRepeat()); // works?
 
-    averagePrintAll(head); //output all at end
+    averagePrintAll(head); // output all at end
 }
 
+/************************************************
+ * Function: adds a node to the front of the LL 
+ * defined in main()
+ *
+ * Parameters:
+ * *&head, the pointer to the head of the
+ * linked list, passed by reference as some called
+ * functions need to be able to alter the pointer.
+ * 
+ * choice, integer value corresponding to method
+ * preference
+ * Return: NONE
+ ************************************************/
 void addHead(Node *&head) // modify where head pointer points, incremen
 {
-    double r;
+    double r = -1;
     string buf;
     bool again;
 
     Node *temp = new Node;
 
-    cout << "Enter review rating 0-5: ";
-    cin >> r;
+    while (r < 0 || r > 5)
+    {
+        cout << "Enter review rating 0-5: ";
+        cin >> r;
+        if (r < 0 || r > 5)
+            cout << "Please enter a valid rating (0-5, decimals okay)\n";
+    }
     temp->rating = r; // input validation needed
 
-    cin.ignore(100, '\n'); //clear input before getline
+    cin.ignore(100, '\n'); // clear input before getline
     cout << "Enter review comments: ";
     getline(cin, buf);
     temp->comment = buf;
 
-    //assignment
+    // assignment
     temp->next = head; // have new node point where head was pointing
     head = temp;       // have head point to next
 }
 
 void addTail(Node *&head)
 {
-    double r;
+    double r = -1;
     string buf;
     bool again;
 
     Node *temp = new Node;
 
-    cout << "Enter review rating 0-5: ";
-    cin >> r;
+    while (r < 0 || r > 5)
+    {
+        cout << "Enter review rating 0-5: ";
+        cin >> r;
+        if (r < 0 || r > 5)
+            cout << "Please enter a valid rating (0-5, decimals okay)\n";
+    }
+
     temp->rating = r; // input validation needed
 
-    cin.ignore(100, '\n'); //clear input before getline
+    cin.ignore(100, '\n'); // clear input before getline
     cout << "Enter review comments: ";
     getline(cin, buf);
     temp->comment = buf;
+    temp->next = nullptr;
 
-    Node *current = head; 
+    Node *current = head;
 
-    //position in linked list
-    while(current->next != nullptr)
+    if (head == nullptr) // case LL empty
+        head = temp;
+    else
     {
-        current = current->next; //iterate through
+        while (current->next != nullptr)
+        {
+            current = current->next; // iterate through
+        }
+        current->next = temp; // make last one temp
     }
-    current->next = temp; //make last one temp
 }
 
 bool promptRepeat()
@@ -127,9 +175,9 @@ bool promptRepeat()
             return (true);
             break;
         }
-        else if(tolower(buf) == 'n')
+        else if (tolower(buf) == 'n')
         {
-            return(false);
+            return (false);
             break;
         }
         else
@@ -144,12 +192,12 @@ void averagePrintAll(Node *head)
     double avg;
     int i = 0;
 
-    while(head) //while head not nullptr
+    while (head) // while head not nullptr
     {
-        cout << "\t> Review #" << i << ": " << head->rating << ": " << head->comment << '\n'; 
+        cout << "\t> Review #" << i + 1 << ": " << head->rating << ": " << head->comment << '\n'; // i+1 for formatting, starts at 1 in output
         avg += head->rating;
         head = head->next; // go to next element in linked list
-        i++; //increment
+        i++;               // increment
     }
-    cout << "\t> Average: " << (avg/i) << '\n';
+    cout << "\t> Average: " << (avg / i) << '\n';
 }
