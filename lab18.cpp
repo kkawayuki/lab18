@@ -1,4 +1,4 @@
-// COMSC-210 | lab 17 | Kent Kawashima
+// COMSC-210 | lab 18 | Kent Kawashima
 // IDE used: Visual Studio Code
 #include <iostream>
 using namespace std;
